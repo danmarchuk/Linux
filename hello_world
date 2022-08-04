@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Display the word Hello
+echo 'Hello'
+
+# Assign a value to a variable
+WORD='script'
+
+# Display that value using the variable
+echo "$WORD"
