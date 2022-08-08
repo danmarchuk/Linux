@@ -8,3 +8,26 @@ WORD='script'
 
 # Display that value using the variable
 echo "$WORD"
+
+# Demonstarate that the single quotes do not reproduce the variable
+
+echo '$WORD'
+
+# combine the variable with the hard-coded text
+echo "This is a shell $WORD"
+
+# display the content of the variable using an alternative synthax
+echo "This is a shell ${WORD}"
+
+# append text to the variable
+echo "${WORD}ing is fun!"
+
+# create a new variable
+ENDING=ed
+
+# combine two variable
+echo "This is ${WORD}${ENDING}."
+
+# change the valur stored in the ENDING variable
+ENDING='ing'
+echo "${WORD}${ENDING} is fun!"
