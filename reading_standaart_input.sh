@@ -3,19 +3,19 @@
 # this script crates and account on the local system.
 # you'll be pormpted for the account name and password
 
-# Ask for the user name.
-read -p 'Enter the username to create: ' USER_NAME
-
-# Ask for the real name
-read -p 'Enter the name of the person who this account for: ' COMMENT
-
-# Ask for the password
-read -p 'Enter the password for the user' PASSWORD
-
-# Create the user.
-useradd -c "${COMMENT}" -m ${USER_NAME}
-# Set the password for the user.
-
-# Force password chanfe on first login
-
-
+if [ $(id -u) -eq 0 ]; then
+	read -p "Enter username : " username
+	read -s -p "Enter password : " password
+	egrep "^$username" /etc/passwd >/dev/null
+	if [ $? -eq 0 ]; then
+		echo "$username exists!"
+		exit 1
+	else
+		pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
+		useradd -m -p "$pass" "$username"
+		[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
+	fi
+else
+	echo "Only root may add a user to the system."
+	exit 2
+fi
